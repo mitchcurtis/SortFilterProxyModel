@@ -38,7 +38,19 @@ int compareVariants(const QVariant &lhs, const QVariant &rhs)
         if (lhsValue == rhsValue)
             return 0;
         return lhsValue < rhsValue ? -1 : 1;
-    } else if (lhs.canConvert<int>() && rhs.canConvert<int>()) {
+    } else if (lhs.typeId() == QMetaType::ULongLong && rhs.typeId() == QMetaType::ULongLong) {
+        const auto lhsValue = lhs.toULongLong();
+        const auto rhsValue = rhs.toULongLong();
+        if (lhsValue == rhsValue)
+            return 0;
+        return lhsValue < rhsValue ? -1 : 1;
+    }else if (lhs.typeId() == QMetaType::LongLong && rhs.typeId() == QMetaType::LongLong) {
+        const auto lhsValue = lhs.toLongLong();
+        const auto rhsValue = rhs.toLongLong();
+        if (lhsValue == rhsValue)
+            return 0;
+        return lhsValue < rhsValue ? -1 : 1;
+    }else if (lhs.canConvert<int>() && rhs.canConvert<int>()) {
         const auto lhsValue = lhs.toInt();
         const auto rhsValue = rhs.toInt();
         if (lhsValue == rhsValue)
